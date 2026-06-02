@@ -27,6 +27,22 @@ jobs:
         run: |
           cd apps/telegram-bot
           npm install
+      - name: Install customer-panel dependencies
+        run: |
+          cd web/customer-panel
+          npm install
+      - name: Build customer-panel
+        run: |
+          cd web/customer-panel
+          npm run build
+      - name: Install admin-panel dependencies
+        run: |
+          cd web/admin-panel
+          npm install
+      - name: Build admin-panel
+        run: |
+          cd web/admin-panel
+          npm run build
       - name: Deployment placeholder
         run: |
           echo "Deployment workflow is configured. Replace this with your actual deployment commands."
