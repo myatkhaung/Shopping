@@ -15,7 +15,24 @@ exports.createProduct = async (req, res) => {
 };
 
 exports.updateProduct = async (req, res) => {
-  const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  const { name, description, priceMMK, slug, category } = req.body;
+  const updates = {};
+
+  if (name !== undefined) updates.name = name;
+  if (description !== undefined) updates.description = description;
+  if (priceMMK !== undefined) updates.priceMMK = priceMMK;
+  if (slug !== undefined) updates.slug = slug;
+  if (category !== undefined) updates.category = category;
+
+  if (Object.keys(updates).length === 0) {
+    return res.status(400).json({ error: 'No valid fields provided for update' });
+  }
+
+  const product = await Product.findByIdAndUpdate(
+    req.params.id,
+    { $set: updates },
+    { new: true, runValidators: true }
+  );
   if (!product) {
     return res.status(404).json({ error: 'Product not found' });
   }
