@@ -2,35 +2,41 @@
 
 This document provides an overview of the API endpoints available in the Telegram Shop Mini App.
 
-## Shop API
-
-- `GET /api/health`
-  - Returns service status.
-
-- `GET /api/products`
-  - Returns a product catalog.
-
-- `POST /api/orders`
-  - Creates a new order for the authenticated user.
-
-- `GET /api/wallet`
-  - Returns wallet balance and transaction history.
-
 ## Admin API
 
+### Health
 - `GET /admin/health`
-  - Returns admin service status.
+  - Returns service status.
 
-- `GET /admin/orders`
-  - Returns recent orders and sales metrics.
-
+### Products
+- `GET /admin/products`
+  - List all active products.
 - `POST /admin/products`
-  - Creates or updates product data.
+  - Create a new product.
+  - Payload: `{ name, description, priceMMK, slug, category }`
+- `PUT /admin/products/:id`
+  - Update a product by ID.
+- `DELETE /admin/products/:id`
+  - Delete a product by ID.
 
-## Telegram Bot
+### Orders
+- `GET /admin/orders`
+  - List all orders.
+- `GET /admin/orders/:id`
+  - Get a single order by ID.
+- `PATCH /admin/orders/:id/status`
+  - Update order status.
+  - Payload: `{ status }`
 
-- `/start` - Starts the bot and displays the welcome message.
-- `/wallet` - Displays wallet balance and payment options.
-- `/products` - Lists available products.
-- `/orders` - Shows order history.
-- `/support` - Connects the user to customer support.
+### Payments
+- `GET /admin/payments`
+  - List all payment records.
+- `POST /admin/payments`
+  - Record a payment.
+  - Payload: `{ orderId, amountMMK, method, status, transactionId }`
+
+## Telegram Bot Commands
+- `/start` — Initialize the user and welcome message.
+- `/products` — Show available digital products.
+- `/wallet` — Display the current wallet balance.
+- `/orders` — Show recent Telegram orders.

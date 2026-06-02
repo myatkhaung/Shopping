@@ -1,31 +1,65 @@
 # Deployment Guide
 
-This document outlines the deployment strategy for the Telegram Shop Mini App.
+This document outlines how to deploy the Telegram Shop Mini App monorepo.
 
-## Deployment Targets
+## Prerequisites
 
-- `apps/shop-api` — Primary customer-facing shop API.
-- `apps/admin-api` — Admin management API.
-- `apps/telegram-bot` — Telegram bot service.
-- `web/customer-panel` — Customer web application.
-- `web/admin-panel` — Admin web application.
+- Docker and Docker Compose installed
+- GitHub repository configured with branch `main`
+- MongoDB connection string available
+- Telegram bot token from @BotFather
+- Optional payment provider keys
 
-## Recommended Deployment Flow
+## Deployment Steps
 
-1. Build frontend applications.
-2. Run backend services behind a reverse proxy.
-3. Use environment variables for secrets and service connections.
-4. Deploy bot service with a process manager or container runtime.
+1. Clone the repository:
+   ```bash
+git clone https://github.com/myatkhaung/Shopping.git
+cd Shopping
+```
+2. Copy the example environment file and configure your secrets:
+   ```bash
+cp .env.example .env
+```
+3. Start the deployment stack with Docker Compose:
+   ```bash
+cd infra/docker
+docker compose up -d --build
+```
+4. Seed digital products:
+   ```bash
+docker compose run --rm seed-products
+```
+5. Verify services:
+   - `http://localhost:5000` — shop API
+   - `http://localhost:5001` — admin API
+   - `http://localhost:3000` — customer panel
+   - `http://localhost:3001` — admin panel
+
+## Docker Compose Services
+
+- `mongo` — MongoDB database
+- `shop-api` — Customer API backend
+- `admin-api` — Admin backend
+- `telegram-bot` — Telegram bot service
+- `customer-panel` — Customer web UI
+- `admin-panel` — Admin web UI
+- `seed-products` — One-time product seeder
 
 ## Environment Variables
 
-- `TELEGRAM_BOT_TOKEN`
+Set the following values in `.env`:
+
 - `MONGODB_URI`
+- `TELEGRAM_BOT_TOKEN`
+- `TELEGRAM_ADMIN_CHANNEL_ID`
+- `VITE_API_BASE_URL`
 - `PAYMENT_PROVIDER_KEY`
 - `PAYMENT_PROVIDER_SECRET`
 - `JWT_SECRET`
-- `VITE_API_BASE_URL`
 
 ## CI/CD
 
-Please refer to `.github/workflows` for build and deployment automation.
+- `.github/workflows/backend.yml` — installs and tests `apps/shop-api`
+- `.github/workflows/frontend.yml` — builds `web/customer-panel` and `web/admin-panel`
+- `.github/workflows/deploy.yml` — deploys via Docker Compose

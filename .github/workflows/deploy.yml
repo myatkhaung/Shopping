@@ -1,7 +1,7 @@
 name: Deploy
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -11,38 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: '18'
-      - name: Install shop-api dependencies
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and deploy services
         run: |
-          cd apps/shop-api
-          npm install
-      - name: Install admin-api dependencies
-        run: |
-          cd apps/admin-api
-          npm install
-      - name: Install telegram-bot dependencies
-        run: |
-          cd apps/telegram-bot
-          npm install
-      - name: Install customer-panel dependencies
-        run: |
-          cd web/customer-panel
-          npm install
-      - name: Build customer-panel
-        run: |
-          cd web/customer-panel
-          npm run build
-      - name: Install admin-panel dependencies
-        run: |
-          cd web/admin-panel
-          npm install
-      - name: Build admin-panel
-        run: |
-          cd web/admin-panel
-          npm run build
-      - name: Deployment placeholder
-        run: |
-          echo "Deployment workflow is configured. Replace this with your actual deployment commands."
+          cd infra/docker
+          docker compose up -d --build

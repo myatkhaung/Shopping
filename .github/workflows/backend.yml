@@ -7,14 +7,11 @@ on:
     branches: [ main ]
 
 jobs:
-  backend-build:
+  shop-api-build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        service: [shop-api, admin-api, telegram-bot]
     defaults:
       run:
-        working-directory: ./apps/${{ matrix.service }}
+        working-directory: ./apps/shop-api
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -23,7 +20,5 @@ jobs:
           node-version: '18'
       - name: Install dependencies
         run: npm install
-      - name: Run lint check
-        run: npm run --silent lint || echo "No lint script defined"
-      - name: Run basic test hook
-        run: npm run --silent test || echo "No test script defined"
+      - name: Run tests
+        run: npm test
