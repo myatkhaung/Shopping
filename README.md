@@ -1,39 +1,76 @@
-Telegram Shop Mini App
-​A seamless, user-friendly Full-stack Mini App integrated directly into Telegram, designed for efficient shopping experiences, wallet management, and automated order processing.
-​📋 Project Overview
-​Telegram Shop Mini App သည် Telegram ၏ WebApp စွမ်းဆောင်ရည်ကို အသုံးပြုထားသော ပလက်ဖောင်းတစ်ခုဖြစ်သည်။ အသုံးပြုသူများသည် Telegram App ထဲမှ မထွက်ခွာဘဲ ပစ္စည်းများ ရှာဖွေခြင်း၊ ဝယ်ယူခြင်းနှင့် ငွေပေးချေမှုများကို လုံခြုံစွာ ပြုလုပ်နိုင်ပါသည်။
-​✨ Key Features
-​Seamless Integration: Telegram UI/UX နှင့် ကိုက်ညီသော Mini App Interface။
-​Product Catalog: ပစ္စည်းအမျိုးအစားအလိုက် စနစ်တကျ ခွဲခြားထားသော စာရင်း။
-​Wallet System: အသုံးပြုသူများအတွက် ငွေလက်ကျန်စစ်ဆေးခြင်းနှင့် ငွေဖြည့်သွင်းခြင်းစနစ်။
-​Order Management: အော်ဒါတင်ပြီးပါက Admin Channel သို့ အလိုအလျောက် သတင်းပို့ပေးခြင်း။
-​Secure Checkout: လုံခြုံစိတ်ချရသော ငွေပေးချေမှု အထောက်အထားတင်ခြင်း။
-​🛠 Tech Stack
-​Frontend: React.js, Tailwind CSS (Responsive Design)
-​Backend: Node.js, Express.js
-​Database: MongoDB
-​Telegram Integration: Telegraf / Node-Telegram-Bot-API
-​Deployment: VS Code (Codespaces)
-​📁 Folder Structure
-/
-├── backend/          # Node.js Express server
-├── frontend/         # React Application
-├── .gitignore        # Git ignored files
-└── README.md         # Documentation
-Getting Started
-Prerequisites
-Node.js (v18+)
-MongoDB Atlas Account
-Telegram Bot Token (from @BotFather)
-Installation
+# Telegram Shop Mini App
 
-1.Clone the repository:
-git clone <your-repo-url>
-2.Install dependencies:
+A professional Full-stack Telegram Mini App with a Node.js/Express backend and a React + Tailwind CSS frontend. This repo is structured to support a clean separation between backend and frontend code for easier development and deployment.
+
+## Project Overview
+
+This project delivers a Telegram-integrated shopping experience through a Telegram Mini App. Users can browse products, manage their wallet, checkout securely, and complete orders without leaving Telegram.
+
+## Key Features
+
+- Seamless Telegram Mini App integration
+- Product catalog with category browsing
+- User wallet dashboard for balance and top-up
+- Order creation and automated admin notification
+- Secure checkout flow with payment tracking
+
+## Wallet & Payment System
+
+The wallet system is designed to manage user balances, display current wallet status, and support payment operations through the app. Payments are recorded and processed server-side, while Telegram notifications keep users and administrators informed.
+
+## Tech Stack
+
+- Backend: Node.js, Express.js
+- Frontend: React, Tailwind CSS
+- Database: MongoDB
+- Telegram Integration: Telegraf / Node-Telegram-Bot-API
+- Deployment: Docker / VS Code Codespaces (optional)
+
+## Project Structure
+
+```text
+/
+├── backend/          # Node.js Express server code
+├── frontend/         # React application source code
+├── .gitignore        # Git ignore rules
+├── LICENSE           # Project license
+└── README.md         # Project documentation
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ installed
+- MongoDB Atlas or local MongoDB instance
+- Telegram Bot Token from @BotFather
+
+### Setup
+
+1. Clone the repository:
+   ```bash
+git clone https://github.com/myatkhaung/Shopping.git
+cd Shopping
+```
+2. Install dependencies for backend and frontend:
+   ```bash
 cd backend && npm install
 cd ../frontend && npm install
-3.Environment Setup:
-.env ဖိုင်ကို ဖန်တီးပြီး လိုအပ်သော API Keys များကို ထည့်သွင်းပါ။
-4.Run the project:
-npm run dev
+```
+3. Create environment files:
+   - `backend/.env`
+   - `frontend/.env`
+
+   Add the required API keys and database connection information.
+
+4. Run the application:
+   ```bash
+cd backend && npm run dev
+cd ../frontend && npm run dev
+```
+
+### Notes
+
+- Do not commit `.env` files or secrets.
+- Keep `node_modules`, build artifacts, and local environment files out of version control.
 
