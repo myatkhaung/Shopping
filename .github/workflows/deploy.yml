@@ -1,19 +1,32 @@
 name: Deploy
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: {}
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup deployment environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '18'
+      - name: Install shop-api dependencies
         run: |
-          echo "Deploy job placeholder"
-          echo "Add your deployment commands here"
-      - name: Deploy services
+          cd apps/shop-api
+          npm install
+      - name: Install admin-api dependencies
         run: |
-          echo "Deploy apps/shop-api, apps/admin-api, apps/telegram-bot, web/customer-panel, web/admin-panel"
+          cd apps/admin-api
+          npm install
+      - name: Install telegram-bot dependencies
+        run: |
+          cd apps/telegram-bot
+          npm install
+      - name: Deployment placeholder
+        run: |
+          echo "Deployment workflow is configured. Replace this with your actual deployment commands."
