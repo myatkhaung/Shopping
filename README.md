@@ -71,6 +71,7 @@ cd ../frontend && npm run dev
 
 ### Notes
 
-- Do not commit `.env` files or secrets.
-- Keep `node_modules`, build artifacts, and local environment files out of version control.
+git remote set-url origin https://github.com/myatkhaung/Shopping.git
+git branch -M main
+git push -u origin main- Keep `node_modules`, build artifacts, and local environment files out of version control.
 
