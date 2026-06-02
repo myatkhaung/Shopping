@@ -1,0 +1,71 @@
+services:
+  mongo:
+    image: mongo:6.0
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - 27017:27017
+
+  shop-api:
+    build:
+      context: ../../apps/shop-api
+      dockerfile: Dockerfile
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/telegram-shop
+      - PORT=5000
+    ports:
+      - 5000:5000
+    depends_on:
+      - mongo
+
+  admin-api:
+    build:
+      context: ../../apps/admin-api
+      dockerfile: Dockerfile
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/telegram-shop
+      - PORT=5001
+    ports:
+      - 5001:5001
+    depends_on:
+      - mongo
+
+  telegram-bot:
+    build:
+      context: ../../apps/telegram-bot
+      dockerfile: Dockerfile
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/telegram-shop
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+    depends_on:
+      - mongo
+
+  customer-panel:
+    build:
+      context: ../../web/customer-panel
+      dockerfile: Dockerfile
+    ports:
+      - 3000:80
+
+  admin-panel:
+    build:
+      context: ../../web/admin-panel
+      dockerfile: Dockerfile
+    ports:
+      - 3001:80
+
+  seed-products:
+    image: node:18-alpine
+    depends_on:
+      - mongo
+    volumes:
+      - ../../:/workspace
+    working_dir: /workspace
+    command: ["node", "database/seeders/seed-digital-products.js"]
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/telegram-shop
+    restart: "no"
+
+volumes:
+  mongo-data:
