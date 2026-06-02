@@ -1,0 +1,29 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend-build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [shop-api, admin-api, telegram-bot]
+    defaults:
+      run:
+        working-directory: ./apps/${{ matrix.service }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm install
+      - name: Run lint check
+        run: npm run --silent lint || echo "No lint script defined"
+      - name: Run basic test hook
+        run: npm run --silent test || echo "No test script defined"

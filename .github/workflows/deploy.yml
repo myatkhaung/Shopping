@@ -1,0 +1,19 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup deployment environment
+        run: |
+          echo "Deploy job placeholder"
+          echo "Add your deployment commands here"
+      - name: Deploy services
+        run: |
+          echo "Deploy apps/shop-api, apps/admin-api, apps/telegram-bot, web/customer-panel, web/admin-panel"

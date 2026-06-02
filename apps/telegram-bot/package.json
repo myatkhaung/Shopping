@@ -1,0 +1,17 @@
+{
+  "name": "telegram-shop-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot module for the Telegram Shop Mini App",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "nodemon bot.js"
+  },
+  "dependencies": {
+    "telegraf": "^4.11.2",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
